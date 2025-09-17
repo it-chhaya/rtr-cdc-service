@@ -1,0 +1,134 @@
+{
+  "type": "record",
+  "name": "Envelope",
+  "namespace": "CDC.CORE_BANKING.CUSTOMER",
+  "fields": [
+    {
+      "name": "before",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Value",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "string"
+            },
+            {
+              "name": "CUSTOMER_NUMBER",
+              "type": "string"
+            },
+            {
+              "name": "FIRST_NAME",
+              "type": "string"
+            },
+            {
+              "name": "LAST_NAME",
+              "type": "string"
+            },
+            {
+              "name": "DATE_OF_BIRTH",
+              "type": {
+                "type": "long",
+                "connect.version": 1,
+                "connect.name": "io.debezium.time.Timestamp"
+              }
+            },
+            {
+              "name": "EMAIL",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "SEGMENT_ID",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "PROFITABILITY",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "STATUS",
+              "type": [
+                {
+                  "type": "string",
+                  "connect.default": "ACTIVE"
+                },
+                "null"
+              ],
+              "default": "ACTIVE"
+            },
+            {
+              "name": "CREATED_AT",
+              "type": [
+                "null",
+                {
+                  "type": "long",
+                  "connect.version": 1,
+                  "connect.name": "io.debezium.time.MicroTimestamp"
+                }
+              ],
+              "default": null
+            },
+            {
+              "name": "CREATED_BY",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "UPDATED_AT",
+              "type": [
+                "null",
+                {
+                  "type": "long",
+                  "connect.version": 1,
+                  "connect.name": "io.debezium.time.MicroTimestamp"
+                }
+              ],
+              "default": null
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            }
+          ],
+          "connect.name": "CDC.CORE_BANKING.CUSTOMER.Value"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "after",
+      "type": [
+        "null",
+        "Value"
+      ],
+      "default": null
+    },
+    {
+      "name": "op",
+      "type": "string"
+    }
+  ],
+  "connect.version": 2,
+  "connect.name": "CDC.CORE_BANKING.CUSTOMER.Envelope"
+}

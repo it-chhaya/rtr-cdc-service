@@ -1,0 +1,64 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.github.davidmc24.gradle.plugin.avro' version '1.9.1'
+}
+
+group = 'co.istad'
+version = '0.0.1-SNAPSHOT'
+description = 'Cleansing and Normalisation Data from Debezium'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url "https://packages.confluent.io/maven/"
+	}
+}
+
+ext {
+	set('springCloudVersion', "2025.0.0")
+	confluentVersion = '7.8.0'
+}
+
+dependencies {
+
+	// Confluent & Avro dependencies
+	implementation "io.confluent:kafka-streams-avro-serde:${confluentVersion}"
+	implementation "io.confluent:kafka-schema-registry-client:${confluentVersion}"
+	implementation "io.confluent:kafka-avro-serializer:${confluentVersion}"
+	// If you need to generate classes from Avro schemas
+	implementation 'org.apache.avro:avro:1.12.0'
+
+	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

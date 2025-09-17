@@ -1,0 +1,47 @@
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+spring:
+  application:
+    name: cdc-service
+  profiles:
+    active: dev
+  config:
+    import: configserver:http://localhost:8888
+  cloud:
+    config:
+      username: admin
+      password: admin@123
+  rabbitmq:
+    host: 34.87.180.247
+    username: admin
+    password: password
+    port: 5672
+  kafka:
+    bootstrap-servers: localhost:29093,localhost:39093,localhost:49093
+    security:
+      protocol: SSL
+    ssl:
+      trust-store-location: classpath:kafka.server.truststore.jks
+      trust-store-password: password123
+      key-store-location: classpath:kafka.server.keystore.jks
+      key-store-password: password123
+      key-password: password123
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        schema.registry.url: http://localhost:8081
+        specific.avro.reader: true
+        value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
+        #spring.json.trusted.packages: "*"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 10000
