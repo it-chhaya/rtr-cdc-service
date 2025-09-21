@@ -1,0 +1,87 @@
+{
+	"type": "record",
+	"name": "Value",
+	"namespace": "CDC.CORE_BANKING.TRANSACTION",
+	"fields": [
+		{
+			"name": "ID",
+			"type": "string"
+		},
+		{
+			"name": "ACCOUNT_ID",
+			"type": "string"
+		},
+		{
+			"name": "TYPE_CODE",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "AMOUNT",
+			"type": "string"
+		},
+		{
+			"name": "CURRENCY",
+			"type": [
+				{
+					"type": "string",
+					"connect.default": "USD"
+				},
+				"null"
+			],
+			"default": "USD"
+		},
+		{
+			"name": "REMARK",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "CREATED_AT",
+			"type": [
+				"null",
+				{
+					"type": "long",
+					"connect.version": 1,
+					"connect.name": "io.debezium.time.MicroTimestamp"
+				}
+			],
+			"default": null
+		},
+		{
+			"name": "CREATED_BY",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "UPDATED_AT",
+			"type": [
+				"null",
+				{
+					"type": "long",
+					"connect.version": 1,
+					"connect.name": "io.debezium.time.MicroTimestamp"
+				}
+			],
+			"default": null
+		},
+		{
+			"name": "UPDATED_BY",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		}
+	],
+	"connect.name": "CDC.CORE_BANKING.TRANSACTION.Value"
+}
