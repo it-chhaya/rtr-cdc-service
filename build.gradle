@@ -35,7 +35,10 @@ ext {
 
 dependencies {
 
-	// Confluent & Avro dependencies
+    // For XML
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+
+    // Confluent & Avro dependencies
 	implementation "io.confluent:kafka-streams-avro-serde:${confluentVersion}"
 	implementation "io.confluent:kafka-schema-registry-client:${confluentVersion}"
 	implementation "io.confluent:kafka-avro-serializer:${confluentVersion}"

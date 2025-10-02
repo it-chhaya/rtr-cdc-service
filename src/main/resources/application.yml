@@ -35,7 +35,7 @@ spring:
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       properties:
         schema.registry.url: http://localhost:8081
-        specific.avro.reader: true
+        specific.avro.reader: false
         value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
         #spring.json.trusted.packages: "*"
 management:
