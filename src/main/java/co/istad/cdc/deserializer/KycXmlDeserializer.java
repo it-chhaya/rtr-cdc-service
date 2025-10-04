@@ -1,9 +1,14 @@
 package co.istad.cdc.deserializer;
 
-import co.istad.cdc.model.KYC;
+import co.istad.cdc.model.Address;
+import co.istad.cdc.model.Kyc;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-public class KycXmlDeserializer extends XmlStringDeserializer<KYC> {
+import java.util.List;
+
+public class KycXmlDeserializer extends XmlStringDeserializer<List<Kyc>> {
     public KycXmlDeserializer() {
-        super(KYC.class);
+        super(new XmlMapper().getTypeFactory()
+                .constructCollectionType(List.class, Kyc.class));
     }
 }

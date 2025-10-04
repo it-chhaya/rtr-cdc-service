@@ -5,9 +5,16 @@ import co.istad.cdc.deserializer.ContactXmlDeserializer;
 import co.istad.cdc.deserializer.KycXmlDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.avro.reflect.Nullable;
+
+import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @JsonProperty("ID")
@@ -27,13 +34,14 @@ public class Customer {
 
     @JsonProperty("ADDRESS_XML")
     @JsonDeserialize(using = AddressXmlDeserializer.class)
-    private Addresses addresses;
+    @Nullable
+    private List<Address> addresses;
 
     @JsonProperty("CONTACT_XML")
     @JsonDeserialize(using = ContactXmlDeserializer.class)
-    private Contacts contacts;
+    private List<Contact> contacts;
 
     @JsonProperty("KYC_XML")
     @JsonDeserialize(using = KycXmlDeserializer.class)
-    private KYC kyc;
+    private List<Kyc> kyc;
 }

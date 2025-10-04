@@ -33,11 +33,17 @@ public class CustomerEventConsumer {
                 return;
             }
 
+            System.out.println("record: " +  record.value());
+
             // Read and clean data
             DebeziumEnvelope<Customer> customerEvent =
-                    objectMapper.readValue(record.value().toString(), new TypeReference<>(){});
+                    objectMapper.readValue(record.value().toString(),
+                            new TypeReference<>(){});
 
             // YOUR LOGIC..!
+            System.out.println("OP: " + customerEvent.getOp());
+            System.out.println("Before: " + customerEvent.getBefore());
+            System.out.println("After: " + customerEvent.getAfter());
 
             // Send cleaned data into Kafka Topic
             Customer customer = customerEvent.getAfter();

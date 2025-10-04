@@ -1,9 +1,13 @@
 package co.istad.cdc.deserializer;
 
-import co.istad.cdc.model.Addresses;
+import co.istad.cdc.model.Address;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-public class AddressXmlDeserializer extends XmlStringDeserializer<Addresses> {
+import java.util.List;
+
+public class AddressXmlDeserializer extends XmlStringDeserializer<List<Address>> {
     public AddressXmlDeserializer() {
-        super(Addresses.class);
+        super(new XmlMapper().getTypeFactory()
+                .constructCollectionType(List.class, Address.class));
     }
 }
