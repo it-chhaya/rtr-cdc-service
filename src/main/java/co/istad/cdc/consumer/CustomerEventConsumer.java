@@ -28,7 +28,7 @@ public class CustomerEventConsumer {
         try {
 
             if (record.value() == null) {
-                // Operation
+                // Operation Deleted
                 System.out.println("Deleted key: " + record.key());
                 return;
             }
@@ -45,6 +45,13 @@ public class CustomerEventConsumer {
             System.out.println("Before: " + customerEvent.getBefore());
             System.out.println("After: " + customerEvent.getAfter());
 
+            switch (customerEvent.getOp()) {
+                case "c", "r" -> handleCreateOp(customerEvent.getAfter());
+                case "u" -> handleUpdateOp(customerEvent.getBefore(), customerEvent.getAfter());
+                case "d" -> handleDeleteOp(customerEvent.getBefore());
+                default -> System.out.println("Unknown op: " + customerEvent.getOp());
+            }
+
             // Send cleaned data into Kafka Topic
             Customer customer = customerEvent.getAfter();
             GenericRecord genericRecord = AvroConverterConfig.toGenericRecord(customer);
@@ -56,6 +63,24 @@ public class CustomerEventConsumer {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
+
+    }
+
+    private void handleCreateOp(Customer customer) {
+        // TODO: Insert data in database
+
+        // TODO: Call Customer Service REST API
+
+
+
+        // TODO: Publish customerCreatedEvent into Kafka topic, consumers, real-time report
+    }
+
+    private void handleDeleteOp(Customer customer) {
+
+    }
+
+    private void handleUpdateOp(Customer oldCustomer, Customer newCustomer) {
 
     }
 
