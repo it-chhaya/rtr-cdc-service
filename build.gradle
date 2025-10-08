@@ -35,6 +35,12 @@ ext {
 
 dependencies {
 
+    compileOnly 'org.mapstruct:mapstruct:1.6.3' // core mapstruct
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3' // annotation process mapstruct
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     // For XML
@@ -52,8 +58,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

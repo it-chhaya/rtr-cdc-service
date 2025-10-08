@@ -1,7 +1,9 @@
 package co.istad.cdc.consumer;
 
 import co.istad.cdc.client.CustomerClient;
+import co.istad.cdc.client.dto.CustomerSync;
 import co.istad.cdc.config.AvroConverterConfig;
+import co.istad.cdc.mapper.CustomerMapper;
 import co.istad.cdc.model.Customer;
 import co.istad.cdc.model.DebeziumEnvelope;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +24,7 @@ public class CustomerEventConsumer {
     private final KafkaTemplate<String, GenericRecord> kafkaTemplate;
 
     private final CustomerClient customerClient;
+    private final CustomerMapper customerMapper;
 
     @KafkaListener(topics = "CDC.CORE_BANKING.CUSTOMER",
         groupId = "${spring.application.name}")
@@ -73,7 +76,8 @@ public class CustomerEventConsumer {
         // TODO: Insert data in database
 
         // TODO: Call Customer Service REST API
-        customerClient.syncCustomer(customer);
+        CustomerSync customerSync = customerMapper.toCustomerSync(customer);
+        customerClient.syncCustomer(customerSync);
 
         // TODO: Publish customerCreatedEvent into Kafka topic, consumers, real-time report
     }

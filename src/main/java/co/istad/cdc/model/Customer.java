@@ -21,7 +21,6 @@ public class Customer {
     private String id;
 
     @JsonProperty("CUSTOMER_NUMBER")
-
     private String customerNumber;
 
     @JsonProperty("FIRST_NAME")
@@ -29,6 +28,9 @@ public class Customer {
 
     @JsonProperty("LAST_NAME")
     private String lastName;
+
+    @JsonProperty("DATE_OF_BIRTH")
+    private Long dateOfBirth;
 
     @JsonProperty("EMAIL")
     private String email;
