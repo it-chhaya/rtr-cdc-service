@@ -45,6 +45,22 @@ spring:
         schema.registry.url: http://localhost:8081
     properties:
       schema.registry.url: http://localhost:8081
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/rtr-ms
+        registration:
+          internal:
+            provider: keycloak
+            client-id: internal
+            client-secret: rtrSx6PaHbxBv2hnXpJSBILV8FISQj5P
+            authorization-grant-type: client_credentials
+            scope:
+              - openid # Auto issue access token
+              - profile # Get profile
+              - email # Get email
 management:
   endpoints:
     web:
