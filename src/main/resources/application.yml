@@ -52,3 +52,6 @@ management:
         include: "*"
 server:
   port: 10000
+
+service:
+  customer: "customer"

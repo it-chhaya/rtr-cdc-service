@@ -1,6 +1,7 @@
 package co.istad.cdc.client;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,11 +11,14 @@ public class HttpInterfaceWebClientConfig {
 
     private final HttpInterfaceWebClient httpInterfaceWebClient;
 
+    @Value("${service.customer}")
+    private String customerService;
+
     @Bean
     public CustomerClient customerClient() {
         return httpInterfaceWebClient
                 .createClient(
-                        "http://localhost:16800/api/v1",
+                        "http://" + customerService,
                         CustomerClient.class
                 );
     }
