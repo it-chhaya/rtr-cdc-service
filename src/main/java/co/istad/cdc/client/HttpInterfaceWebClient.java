@@ -17,7 +17,8 @@ public class HttpInterfaceWebClient {
 
     public <T> T createClient(String baseUrl, Class<T> interfaceClass) {
 
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(oAuth2AuthorizedClientManager);
+        var oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(
+                oAuth2AuthorizedClientManager);
         oauth2.setDefaultClientRegistrationId("internal");
 
         // Step 1 => Create web client object
