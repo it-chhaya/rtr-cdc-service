@@ -55,8 +55,8 @@ dependencies {
 	implementation "io.confluent:kafka-avro-serializer:${confluentVersion}"
 	// If you need to generate classes from Avro schemas
 	implementation 'org.apache.avro:avro:1.12.0'
-
 	implementation 'org.springframework.kafka:spring-kafka'
+
 	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'

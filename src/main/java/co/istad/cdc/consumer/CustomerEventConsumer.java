@@ -58,13 +58,6 @@ public class CustomerEventConsumer {
                 default -> System.out.println("Unknown op: " + customerEvent.getOp());
             }
 
-            // Send cleaned data into Kafka Topic
-            Customer customer = customerEvent.getAfter();
-            GenericRecord genericRecord = AvroConverterConfig.toGenericRecord(customer);
-            kafkaTemplate.send("customerXmlCleanedEventTopic",
-                    customer.getId(),
-                    genericRecord);
-
         } catch (JsonProcessingException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -76,10 +69,15 @@ public class CustomerEventConsumer {
         // TODO: Insert data in database
 
         // TODO: Call Customer Service REST API
-        CustomerSync customerSync = customerMapper.toCustomerSync(customer);
-        customerClient.syncCustomer(customerSync);
+        //CustomerSync customerSync = customerMapper.toCustomerSync(customer);
+        //customerClient.syncCustomer(customerSync);
 
+        // TODO: Pub/Sub Pattern
         // TODO: Publish customerCreatedEvent into Kafka topic, consumers, real-time report
+        GenericRecord genericRecord = AvroConverterConfig.toGenericRecord(customer);
+        kafkaTemplate.send("customerCreatedEventTopic",
+                customer.getId(),
+                genericRecord);
     }
 
     private void handleDeleteOp(Customer customer) {
