@@ -53,7 +53,7 @@ public class CustomerEventConsumer {
 
             switch (customerEvent.getOp()) {
                 case "c", "r" -> handleCreateOp(customerEvent.getAfter());
-                case "u" -> handleUpdateOp(customerEvent.getBefore(), customerEvent.getAfter());
+                case "u" -> handleUpdateOp(customerEvent.getAfter());
                 case "d" -> handleDeleteOp(customerEvent.getBefore());
                 default -> System.out.println("Unknown op: " + customerEvent.getOp());
             }
@@ -81,11 +81,17 @@ public class CustomerEventConsumer {
     }
 
     private void handleDeleteOp(Customer customer) {
-
+        GenericRecord genericRecord = AvroConverterConfig.toGenericRecord(customer);
+        kafkaTemplate.send("customerDeletedEventTopic",
+                customer.getId(),
+                genericRecord);
     }
 
-    private void handleUpdateOp(Customer oldCustomer, Customer newCustomer) {
-
+    private void handleUpdateOp(Customer customer) {
+        GenericRecord genericRecord = AvroConverterConfig.toGenericRecord(customer);
+        kafkaTemplate.send("customerUpdatedEventTopic",
+                customer.getId(),
+                genericRecord);
     }
 
 }
